@@ -20,8 +20,11 @@
             restrict: 'AE',
             replace: true,
             template: "<div ng-bind='time'></div>",
-            link: function (scope) {
+            link: function (scope, el) {
                 scope.time = (new Date()).toLocaleDateString();
+                el.on("click", function () {
+                    alert("click");
+                });
             }
         }
     });
