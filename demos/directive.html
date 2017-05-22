@@ -6,22 +6,32 @@
 </head>
 <body>
 <div class="container" ng-controller="ctrl">
-    <div ng-bind="world"></div>
-    <date-banner></date-banner>
+    <date-banner time="date"></date-banner>
+</div>
+<div class="container" ng-controller="ctrl1">
+    <date-banner time="date"></date-banner>
 </div>
 <script src="../lib/angular-1.5.6.js"></script>
 <script>
     var main = angular.module('main', []);
     main.controller('ctrl', ['$scope', function ($scope) {
-        $scope.world = "hello";
+        $scope.time = "time0 " + (new Date()).toLocaleDateString();
+        $scope.date = "2017";
+    }]);
+    main.controller('ctrl1', ['$scope', function ($scope) {
+        $scope.time = "time2 " + (new Date()).toLocaleDateString();
+        $scope.date = "2017-05";
+
     }]);
     main.directive("dateBanner", function () {
         return {
             restrict: 'AE',
             replace: true,
             template: "<div ng-bind='time'></div>",
+            scope: {
+                time: "=?"
+            },
             link: function (scope, el) {
-                scope.time = (new Date()).toLocaleDateString();
                 el.on("click", function () {
                     alert("click");
                 });
