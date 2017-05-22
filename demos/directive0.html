@@ -32,7 +32,25 @@
             scope: {
                 time: "="
             },
+            compile: function (tElement, tAttrs, transclude) {
+                console.log(arguments)
+                var parent = tElement.parent();
+                var clone = tElement.clone();
+                clone.addClass("clone");
+                parent.append(clone);
+                return {
+                    post: function (scope, el) {
+                        console.log(arguments)
+                        scope.change = function () {
+                            scope.time++;
+                        }
+                    },
+                    pre: function (scope, el) {
+                    }
+                }
+            },
             link: function (scope, el) {
+                console.log("link")
                 scope.change = function () {
                     scope.time++;
                 }

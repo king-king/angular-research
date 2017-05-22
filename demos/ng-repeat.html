@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>directive</title>
+    <style>
+        .btn {
+            border: 1px solid black;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container" ng-controller="ctrl">
+    <div ng-repeat="people in peoples">
+        <div ng-bind="'姓名：'+people.name"></div>
+        <div ng-bind="'年齡：'+people.year"></div>
+    </div>
+</div>
+<script src="../lib/angular-1.5.6.js"></script>
+<script>
+    var main = angular.module('main', []);
+    main.controller('ctrl', ['$scope', function ($scope) {
+        $scope.peoples = [
+            {
+                name: "tom",
+                year: 43
+            }, {
+                name: "jack",
+                year: 22
+            }, {
+                name: "rice",
+                year: 38
+            }
+        ];
+    }]);
+    angular.bootstrap(document, ['main']);
+</script>
+</body>
+</html>
