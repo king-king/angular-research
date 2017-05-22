@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>directive</title>
+</head>
+<body ng-app="main">
+<div class="container" ng-controller="ctrl">
+    <div ng-bind="world"></div>
+    <date-banner></date-banner>
+</div>
+<script src="../lib/angular-1.5.6.js"></script>
+<script>
+    var main = angular.module('main', []);
+    main.controller('ctrl', ['$scope', function ($scope) {
+        $scope.world = "hello";
+    }]);
+    main.directive("dateBanner", function () {
+        return {
+            restrict: 'AE',
+            replace: true,
+            template: "<div ng-bind='time'></div>",
+            link: function (scope) {
+                scope.time = (new Date()).toLocaleDateString();
+            }
+        }
+    });
+</script>
+</body>
+</html>
