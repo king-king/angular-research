@@ -28,35 +28,47 @@
         return {
             restrict: 'AE',
             replace: true,
-            template: "<div ng-bind='time' class='btn' ng-click='change()'></div>",
+            template: "<div  class='btn' ></div>",
+            scope: {
+                time: "="
+            },
+            compile: function (tElement, tAttrs, transclude) {
+                tElement.html('<img-banner></img-banner>');
+                console.log(tElement)
+                return {
+                    post: function (scope, el) {
+                        console.log(arguments)
+                    },
+                    pre: function (scope, el) {
+                        console.log(arguments)
+                    }
+                }
+            }
+        }
+    });
+
+    main.directive("imgBanner", function () {
+        return {
+            restrict: 'AE',
+            replace: true,
+            template: "<img src='img/3.jpg'>",
             scope: {
                 time: "="
             },
             compile: function (tElement, tAttrs, transclude) {
                 console.log(arguments)
-                var parent = tElement.parent();
-                var clone = tElement.clone();
-                clone.addClass("clone");
-                parent.append(clone);
                 return {
                     post: function (scope, el) {
                         console.log(arguments)
-                        scope.change = function () {
-                            scope.time++;
-                        }
                     },
                     pre: function (scope, el) {
+                        console.log(arguments)
                     }
-                }
-            },
-            link: function (scope, el) {
-                console.log("link")
-                scope.change = function () {
-                    scope.time++;
                 }
             }
         }
     });
+
     angular.bootstrap(document, ['main']);
 </script>
 </body>
