@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>directive</title>
+    <style>
+        .btn {
+            border: 1px solid black;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container" ng-controller="ctrl">
+    <div ng-bind="name"></div>
+    <div ng-bind="year"></div>
+    <date-banner time="date"></date-banner>
+</div>
+<script src="../lib/angular-1.5.6.js"></script>
+<script>
+    var main = angular.module('main', []);
+    main.controller('ctrl', ['$scope', function ($scope) {
+        $scope.time = 0;
+        $scope.date = 0;
+    }]);
+    main.directive("dateBanner", function () {
+        return {
+            restrict: 'AE',
+            replace: true,
+            controller:["$scope",function ($scope) {
+                $scope.name = "wq";
+                $scope.year = 43;
+            }],
+            template: "<div  class='btn'><span ng-bind='name'></span><span ng-bind='year'></span></div>",
+            scope: {
+                time: "="
+            },
+            compile: function (tElement, tAttrs, transclude) {
+                return {
+                    post: function (scope, el) {
+//                        scope.name = "wq";
+//                        scope.year = 43;
+                        console.log(arguments)
+                    },
+                    pre: function (scope, el) {
+                        console.log(arguments)
+                    }
+                }
+            }
+        }
+    });
+
+
+    angular.bootstrap(document, ['main']);
+</script>
+</body>
+</html>
